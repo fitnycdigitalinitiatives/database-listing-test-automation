@@ -48,7 +48,7 @@ with open(filename, "w") as outfile:
     json.dump(clean_databases, outfile, indent=4)
 
 repo = Repo(base_directory)
-repo.git.add(update=True)
+repo.git.add(A=True)
 repo.index.commit("Automated database update.")
 
 with Git().custom_environment(GIT_SSH_COMMAND=ssh_cmd):
