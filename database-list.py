@@ -3,6 +3,7 @@
 import os
 import json
 import requests
+from datetime import datetime
 
 endpoint = "https://lgapi-us.libapps.com/1.1/assets"
 params = {
@@ -36,3 +37,11 @@ for database in databases:
 filename = "databases.json"
 with open(filename, "w") as outfile:
     json.dump(clean_databases, outfile, indent=4)
+
+
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+filename = f"action-log.txt"
+file_content = f"This action was last run {timestamp}."
+
+with open(filename, 'w') as f:
+    f.write(file_content)
