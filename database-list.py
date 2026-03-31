@@ -14,10 +14,6 @@ params = {
     "asset_types": "10",
     "expand": "permitted_uses,az_types,az_props,subjects,icons",
 }
-ssh_private_key_path = os.path.expanduser('~/.ssh/id_ed25519')
-
-# Construct the SSH command
-ssh_cmd = f"ssh -i {ssh_private_key_path} -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 proxy = "https://libproxy.fitsuny.edu/login?url="
 
@@ -43,7 +39,7 @@ for database in databases:
     if database["enable_hidden"] == False:
         clean_databases.append(database)
 
-filename = os.path.join(base_directory, "page/databases.json")
+filename = os.path.join(base_directory, "databases.json")
 with open(filename, "w") as outfile:
     json.dump(clean_databases, outfile, indent=4)
 
@@ -51,6 +47,5 @@ repo = Repo(base_directory)
 repo.git.add(A=True)
 repo.index.commit("Automated database update.")
 
-# with Git().custom_environment(GIT_SSH_COMMAND=ssh_cmd):
 origin = repo.remote(name='origin')
 origin.push()
