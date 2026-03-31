@@ -51,6 +51,6 @@ repo = Repo(base_directory)
 repo.git.add(A=True)
 repo.index.commit("Automated database update.")
 
-with Git().custom_environment(GIT_SSH_COMMAND=ssh_cmd):
-    origin = repo.remote(name='origin')
-    origin.push()
+# with Git().custom_environment(GIT_SSH_COMMAND=ssh_cmd):
+origin = repo.remote(name='origin')
+origin.push()
