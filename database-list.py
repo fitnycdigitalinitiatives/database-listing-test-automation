@@ -3,6 +3,7 @@
 import os
 import json
 import requests
+from git import Repo
 from config import lib_apps_key
 
 endpoint = "https://lgapi-us.libapps.com/1.1/assets"
@@ -14,6 +15,8 @@ params = {
 }
 
 proxy = "https://libproxy.fitsuny.edu/login?url="
+
+base_directory = "/Users/joseph_anderson/Desktop/repositories/database-listing-test-automation"
 
 databases = requests.get(endpoint, params=params).json()
 
@@ -34,6 +37,12 @@ for database in databases:
     if database["enable_hidden"] == False:
         clean_databases.append(database)
 
-filename = "/Users/joseph_anderson/Desktop/repositories/database-listing-test-automation/page/databases.json"
+filename = os.path.join(base_directory, "page/databases.json")
 with open(filename, "w") as outfile:
     json.dump(clean_databases, outfile, indent=4)
+
+repo = Repo(base_directory)
+repo.git.add(update=True)
+repo.index.commit("Automated database update.")
+origin = repo.remote(name='origin')
+origin.push()
