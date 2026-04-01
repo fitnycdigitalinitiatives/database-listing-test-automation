@@ -1,8 +1,9 @@
 name: Fetch Databases from Lib Apps
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '45 8 * * *'
+    - cron: '0 11 * * *'
       timezone: "America/New_York"
 
 jobs:
